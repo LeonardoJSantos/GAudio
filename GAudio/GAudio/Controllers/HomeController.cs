@@ -1,4 +1,4 @@
-﻿using GAudio.Models;
+﻿using GAudio.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 

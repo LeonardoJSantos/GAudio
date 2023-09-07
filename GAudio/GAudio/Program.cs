@@ -1,4 +1,35 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using GAudio.Data;
+using System.Configuration;
+using Microsoft.Extensions.Options;
+using Pomelo.EntityFrameworkCore.MySql;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.Extensions.Configuration;
+using System;
+
+
+
 var builder = WebApplication.CreateBuilder(args);
+var configuration = builder.Configuration;
+var connectionString = configuration.GetConnectionString("GaudioContext");
+
+
+
+
+
+
+builder.Services.AddDbContext<GAudioContext>(options =>
+{
+    options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 26)), mysqlOptions =>
+    {
+        mysqlOptions.MigrationsAssembly(typeof(GAudioContext).Assembly.FullName);
+
+    });
+
+});
+
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
